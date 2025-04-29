@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Para Ti 💖</title>
+    <title>Cartas Para Ti 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
         * {
@@ -96,6 +96,29 @@
             white-space: pre-line;
             text-align: center;
         }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            background-color: #ff99cc;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff66a3;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
     </style>
 </head>
 
@@ -104,16 +127,30 @@
     <div class="hearts"></div>
 
     <div class="container">
-        <div class="message" id="msg">Cargando mensaje...</div>
+        <div class="content">
+            <div class="message" id="msg">Cargando mensaje...</div>
+            <button onclick="cargarMensaje()">💌 Mostrar otro mensaje</button>
+        </div>
     </div>
 
     <script>
         // Cargar mensaje desde tu Web App de Google Apps Script
-        fetch("https://script.google.com/macros/s/AKfycbxv1QUhfoO1ytGuXOIRw8lJhL3tfuXQ5yN0CZKXA6sUtiPr0bw9QVPJ78bIRPg8_NJe/exec")
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById("msg").innerText = data.message;
-            });
+        function cargarMensaje() {
+            const msgEl = document.getElementById("msg");
+            msgEl.innerText = "Cargando mensaje...";
+
+            fetch("https://script.google.com/macros/s/AKfycbxv1QUhfoO1ytGuXOIRw8lJhL3tfuXQ5yN0CZKXA6sUtiPr0bw9QVPJ78bIRPg8_NJe/exec")
+                .then(res => res.json())
+                .then(data => {
+                    msgEl.innerText = data.message;
+                })
+                .catch(() => {
+                    msgEl.innerText = "Hubo un error al cargar el mensaje. 💔";
+                });
+        }
+
+        // Cargar un mensaje inicial al entrar
+        cargarMensaje();
 
         // Animación de corazones flotantes
         const heartsContainer = document.querySelector('.hearts');
@@ -132,7 +169,9 @@
             }, 10000);
         }
 
-        setInterval(createHeart, 600);
+        setInterval(createHeart, 150);
+
+        
     </script>
 
 </body>
