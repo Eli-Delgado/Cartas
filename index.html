@@ -119,6 +119,14 @@
             align-items: center;
             gap: 20px;
         }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            animation: float 10s linear infinite;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -156,8 +164,9 @@
         const heartsContainer = document.querySelector('.hearts');
 
         function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
+            const heart = document.createElement('img');
+            heart.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sakura.svg/100px-Sakura.svg.png?20100318161641';
+            heart.classList.add('flower');
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.animationDuration = 5 + Math.random() * 5 + 's';
             heart.style.opacity = Math.random();
@@ -169,9 +178,9 @@
             }, 10000);
         }
 
-        setInterval(createHeart, 150);
+        setInterval(createHeart, 200);
 
-        
+
     </script>
 
 </body>
